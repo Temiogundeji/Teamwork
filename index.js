@@ -1,5 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
+
+// import adminRoutes from './routes/adminRoutes';
+// import articleRoutes from './routes/articleRoutes';
+// import commentRoutes from './routes/commentRoutes';
+// import employeeRoutes from './routes/employeeRoutes';
+// // import postRoutes from './routes/postRoutes';
+
 import cors from 'cors';
 import logger from 'morgan';
 
