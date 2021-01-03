@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "babel index.js — out-file index-compiled.js",
-    "create-dev-tables": "babel-node ./../dev/dbConnect createAllTables",
-    "start": "nodemon --watch . --exec babel-node -- server",
+    "create-dev-tables": "babel-node ./db/dev/dbConnect createAllTables",
+    "dev": "nodemon --watch . --exec babel-node -- index",
     "setup": "npm-run-all -p start create-dev-tables"
   },
   "repository": {

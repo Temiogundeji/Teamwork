@@ -1,8 +1,9 @@
-import pool from "./pool";
+import pool from './pool';
 
-pool.on('connected to db', () => {
+pool.on('connect', () => {
     console.log('Connected to database');
 });
+
 
 const createEmployeeTable = () => {
     const createEmployeeQuery = `CREATE TABLE IF NOT EXISTS employee 
@@ -35,7 +36,7 @@ const createEmployeeTable = () => {
 const createGifTable = () => {
     const createGifQuery = `CREATE TABLE IF NOT EXISTS gif (
         id SERIAL PRIMARY KEY,
-        title VARCHAR(200) NOT NULL,
+        title VARCHAR(200) UNIQUE NOT NULL,
         imageUrl VARCHAR(200) NOT NULL,
         created_on timestamp,
         modified_on timestamp
@@ -56,14 +57,34 @@ const createArticleTable = () => {
     const createArticleQuery = `CREATE TABLE IF NOT EXIST article
     (
         id SERIAL PRIMARY KEY,
-        title VARCHAR(200) NOT NULL,
+        title VARCHAR(200) UNIQUE NOT NULL,
         article_body VARCHAR(200) NOT NULL,
         featured_image VARCHAR(200) NOT NULL,
+        category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
         created_on timestamp,
         modified_on timestamp
     )
     `;
     pool.query(createArticleQuery)
+        .then((res) => {
+            console.log(res);
+            pool.end();
+        })
+        .catch(err => {
+            console.log(err);
+            pool.end();
+    });
+}
+
+const articleCategories = () => {
+    const articleCategoryQuery = `CREATE TABLE IF NOT EXIST categories
+    (
+        id SERIAL PRIMARY KEY,
+        title VARCHAR(200) UNIQUE NOT NULL,
+        about_category VARCHAR(200) NOT NULL,
+    )
+    `;
+    pool.query(articleCategoryQuery)
         .then((res) => {
             console.log(res);
             pool.end();
@@ -189,6 +210,7 @@ const createAllTables = () => {
     createEmployeeTable();
     createGifCommentTable();
     createGifTable();
+    articleCategories();
 }
 
 /** 
@@ -208,7 +230,7 @@ pool.on('remove', () => {
     process.exit(0);
 });
 
-export{
+export {
     createAllTables,
     dropAllTables
 };
