@@ -1,9 +1,17 @@
-import pool from './pool';
+import pool from '../dev/pool';
+// import { Pool } from 'pg';
+// import dotenv from 'dotenv';
+
+// dotenv.config();
+// const connectionString = `postgresql://${process.env.DB_USER}:${process.env.DB_PASSWORD}@${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_DATABASE}`;
+
+// const pool = new Pool({
+//   connectionString: connectionString
+// });
 
 pool.on('connect', () => {
-    console.log('Connected to database');
+  console.log('connected to the db');
 });
-
 
 const createEmployeeTable = () => {
     const createEmployeeQuery = `CREATE TABLE IF NOT EXISTS employee 
@@ -14,8 +22,8 @@ const createEmployeeTable = () => {
         email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(100) NOT NULL,
         image VARCHAR(200) NOT NULL,
-        department NOT NULL,
-        role_id INTEGER DEFAULT 0,
+        department_id INTEGER REFERENCES department(id) ON DELETE CASCADE,
+        role_id INTEGER REFERENCES roles(id) ON DELETE CASCADE,
         address VARCHAR(200) NOT NULL,
         created_on timestamp,
         modified_on timestamp
@@ -32,15 +40,55 @@ const createEmployeeTable = () => {
         })
 }
 
+const createRolesTable = () => {
+    const createRolesQuery = `CREATE TABLE IF NOT EXISTS roles 
+    (
+        id SERIAL PRIMARY KEY,
+        role_title VARCHAR(200) NOT NULL
+    );
+    `;
+    pool.query(createRolesQuery)
+        .then((res) => {
+            console.log(res);
+            pool.end();
+        })
+        .catch(err => {
+            console.log(err);
+            pool.end();
+        })
+}
+
+const createDepartmentTable = () => {
+    const createDepartmentQuery = `CREATE TABLE IF NOT EXISTS department 
+    (
+        id SERIAL PRIMARY KEY,
+        department_name VARCHAR(200) UNIQUE NOT NULL,
+        department_details VARCHAR(200) NOT NULL,
+        created_on timestamp,
+        modified_on timestamp
+    );
+    `;
+    pool.query(createDepartmentQuery)
+        .then((res) => {
+            console.log(res);
+            pool.end();
+        })
+        .catch(err => {
+            console.log(err);
+            pool.end();
+        })
+}
+
 
 const createGifTable = () => {
     const createGifQuery = `CREATE TABLE IF NOT EXISTS gif (
         id SERIAL PRIMARY KEY,
         title VARCHAR(200) UNIQUE NOT NULL,
-        imageUrl VARCHAR(200) NOT NULL,
+        about_gif VARCHAR(250) UNIQUE NOT NULL,
+        imageUrl VARCHAR(250) NOT NULL,
         created_on timestamp,
         modified_on timestamp
-        )
+        );
     `;
     pool.query(createGifQuery)
         .then((res) => {
@@ -54,10 +102,11 @@ const createGifTable = () => {
 }
 
 const createArticleTable = () => {
-    const createArticleQuery = `CREATE TABLE IF NOT EXIST article
+    const createArticleQuery = `CREATE TABLE IF NOT EXISTS article
     (
         id SERIAL PRIMARY KEY,
         title VARCHAR(200) UNIQUE NOT NULL,
+        slug VARCHAR(200) UNIQUE NOT NULL,
         article_body VARCHAR(200) NOT NULL,
         featured_image VARCHAR(200) NOT NULL,
         category_id INTEGER REFERENCES categories(id) ON DELETE CASCADE,
@@ -77,12 +126,11 @@ const createArticleTable = () => {
 }
 
 const articleCategories = () => {
-    const articleCategoryQuery = `CREATE TABLE IF NOT EXIST categories
-    (
+    const articleCategoryQuery = `CREATE TABLE IF NOT EXISTS categories (
         id SERIAL PRIMARY KEY,
         title VARCHAR(200) UNIQUE NOT NULL,
-        about_category VARCHAR(200) NOT NULL,
-    )
+        about_category VARCHAR(200) NOT NULL
+    );
     `;
     pool.query(articleCategoryQuery)
         .then((res) => {
@@ -101,7 +149,7 @@ const createArticleCommentTable = () => {
         employeeId INTEGER REFERENCES employee(id) ON DELETE CASCADE,
         articleId INTEGER REFERENCES article(id) ON DELETE CASCADE,
         commentBody VARCHAR(250) NOT NULL
-    )`;
+    );`;
     pool.query(articleCommentQuery)
         .then((res) => {
             console.log(res);
@@ -211,6 +259,8 @@ const createAllTables = () => {
     createGifCommentTable();
     createGifTable();
     articleCategories();
+    createDepartmentTable();
+    createRolesTable();
 }
 
 /** 
