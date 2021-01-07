@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+const  { Pool }  = require("pg");
 import dotenv from "dotenv"
 
 dotenv.config();
@@ -9,7 +9,7 @@ const databaseConfig = { connectionString: connectionString};
 const pool = new Pool(databaseConfig);
 
 
-export default pool;
+module.exports =  pool;
 
 
 

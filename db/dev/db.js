@@ -1,4 +1,4 @@
-import pool from '../dev/pool';
+const {pool} = require('../dev/pool');
 // import { Pool } from 'pg';
 // import dotenv from 'dotenv';
 

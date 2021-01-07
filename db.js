@@ -1,5 +1,6 @@
 // import pool from './db/dev/pool';
-import { Pool } from 'pg';
+const { Pool, Client } = require('pg');
+
 import dotenv from 'dotenv';
 
 dotenv.config();
