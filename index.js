@@ -4,8 +4,8 @@ import bodyParser from "body-parser";
 // import adminRoutes from './routes/adminRoutes';
 // import articleRoutes from './routes/articleRoutes';
 // import commentRoutes from './routes/commentRoutes';
-// import employeeRoutes from './routes/employeeRoutes';
-// // import postRoutes from './routes/postRoutes';
+import employeeRouter from './routes/employeeRoutes';
+// import postRoutes from './routes/postRoutes';
 
 import cors from 'cors';
 import logger from 'morgan';
@@ -27,9 +27,12 @@ app.use(cors(origin));
 
 app.get("/", (req,res) => {
     res.status(200).send({ message: "Welcome to Node Babel" });
-})
+});
+
+app.use('/', employeeRouter);
+
 app.listen(PORT, () => {
      console.log(`app is listening to port ${PORT}`);
-})
+});
 
 export default app;

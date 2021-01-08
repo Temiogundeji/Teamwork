@@ -41,7 +41,7 @@ import bcrypt from 'bcrypt';
     }
   };
 
-  const generateToken = (email, role_id, id, first_name, last_name) => {
+  const generateToken = (email, id, first_name, last_name) => {
     const token = jwt.sign({
       user_id:id,
       role_id,
@@ -76,16 +76,20 @@ import bcrypt from 'bcrypt';
     }
   }
 
-  const convertTitleToSlug = (title) => {
+  const convertTitlesToSlug = (title) => {
     const lowerCaseArticle = title.toLowerCase();
-    return lowerCaseArticle.split('-');
+    return lowerCaseArticle.split(' ').join('-');
   }
-  
+
   
   export {
     isEmailValid,
     isPasswordValid,
     isEmpty,
     emptyFields,
-    generateToken
+    generateToken,
+    generateHash,
+    comparePassword,
+    convertTitlesToSlug,
+    checkIfEntityExists
   };

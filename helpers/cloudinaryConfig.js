@@ -8,7 +8,7 @@ cloudinary.config({
     api_secret: process.env.API_SECRET
 });
 
-const uploads = async (file) => {
+const cloud = async (file) => {
     try {
         const url = await cloudinary.uploader(file).url;
         return url;
@@ -18,4 +18,4 @@ const uploads = async (file) => {
     }
 }
 
-export default uploads;
+export default cloud;
