@@ -1,4 +1,5 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
 
 /**
  * @param {string} email
@@ -40,7 +41,7 @@ import jwt from 'jsonwebtoken';
     }
   };
 
-  const generateToken = (email, role_id, id, first_name, last_name) => {
+  const generateToken = (email, id, first_name, last_name) => {
     const token = jwt.sign({
       user_id:id,
       role_id,
@@ -52,11 +53,43 @@ import jwt from 'jsonwebtoken';
     { expiresIn: '1d' });
     return token;
   }
+
+  const generateHash = (plainPassword) => {
+    const salt = bcrypt.genSaltSync();
+    const hashedPassword = bcrypt.hashSync(plainPassword, salt);
+    return hashedPassword;
+  }
+
+  const comparePassword = (encodedPassword, password) => {
+    const isMatched = bcrypt.compareSync(password, encodedPassword);
+    return isMatched;
+  }
+
+  const checkIfEntityExists = (entityArr, userEmail) => {
+    entityArr = [];
+    for(let i=0; i < entityArr.length; i++){
+      const user = entityArr[i];
+      if(user.email === userEmail){
+        return true;
+      }
+      return false;
+    }
+  }
+
+  const convertTitlesToSlug = (title) => {
+    const lowerCaseArticle = title.toLowerCase();
+    return lowerCaseArticle.split(' ').join('-');
+  }
+
   
   export {
     isEmailValid,
     isPasswordValid,
     isEmpty,
     emptyFields,
-    generateToken
+    generateToken,
+    generateHash,
+    comparePassword,
+    convertTitlesToSlug,
+    checkIfEntityExists
   };

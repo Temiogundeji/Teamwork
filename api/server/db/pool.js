@@ -9,7 +9,7 @@ const databaseConfig = { connectionString: connectionString};
 const pool = new Pool(databaseConfig);
 
 
-module.exports =  pool;
+export default pool;
 
 
 
