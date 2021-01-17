@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import employeeRoutes from './server/routes/EmployeeRoutes';
+import employeeRoutes from './components/employee/EmployeeRoutes';
 import logger from 'morgan';
 const app = express();
 

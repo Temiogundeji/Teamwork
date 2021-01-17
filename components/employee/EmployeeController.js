@@ -1,8 +1,14 @@
 import moment from 'moment';
-import query from '../db/query';
-import { isEmailValid, isPasswordValid, isEmpty, emptyFields, generateToken, checkIfEntityExists, generateHash, comparePassword } from '../helpers/utils';
+import { isEmailValid, isPasswordValid,
+     isEmpty, emptyFields,
+      generateToken, checkIfEntityExists,
+       generateHash, comparePassword     
+} from '../../helpers/utils';
+import query from '../../db/query';
+import cloud from '../../helpers/cloudinaryConfig';
 
-import cloud from '../helpers/cloudinaryConfig';
+import { dUri } from '../../helpers/multer';
+import { employeeCheckQuery, employeeInsertQuery } from './EmployeeQueries';
 
 const registerEmployee = async (req, res) => {
     const { first_name, last_name, email, password, department_id, address } =  req.body;
@@ -22,19 +28,15 @@ const registerEmployee = async (req, res) => {
             error: "Please enter a valid email address."
         });
     }
-
-    const { path } = req.file;
-
-    console.log(path);
-
-    const image_cloud_url = await cloud(path);
+        const image_cloud_url =  cloud(dUri);
+ 
+   
     console.log(image_cloud_url);
 
-    const userCheckQuery = `SELECT * FROM employee WHERE email = $1`;
     const hashedPassword = generateHash(hashedPassword);
 
     const userCheckVal = [email];
-    const usersFound = await query(userCheckQuery, userCheckVal);
+    const usersFound = await query(employeeCheckQuery, userCheckVal);
 
     if(usersFound.row.length !== 0){
         res.status(400).send({
@@ -43,10 +45,6 @@ const registerEmployee = async (req, res) => {
         });
     }
 
-    const query = `INSERT INTO
-        employee (first_name, last_name, email, password, image, department_id, address)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)
-         returning *`;
     const values = [
         first_name,
         last_name,
@@ -60,8 +58,9 @@ const registerEmployee = async (req, res) => {
     ];
 
     try {
-        const { rows } = await query(query, values);
+        const { rows } = await query(employeeInsertQuery, values);
         const { email, id, first_name, last_name } = rows[0];
+
         const token = generateToken(email, id, first_name, last_name );
         res.status(201).send({
             status: "success",
