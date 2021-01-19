@@ -56,7 +56,8 @@ import bcrypt from 'bcrypt';
 
   const generateHash = (plainPassword) => {
     // const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hash(plainPassword, 10);
+    const salt = 10;
+    const hashedPassword = bcrypt.hash(plainPassword, salt);
     return hashedPassword;
   }
 

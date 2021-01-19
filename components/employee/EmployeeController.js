@@ -5,9 +5,9 @@ import { isEmailValid, isPasswordValid,
        generateHash, comparePassword     
 } from '../../helpers/utils';
 import query from '../../db/query';
-import cloud from '../../helpers/cloudinaryConfig';
+import cloud, { uploader } from '../../helpers/cloudinaryConfig';
 
-import { dUri } from '../../helpers/multer';
+import { dataUri } from '../../helpers/multer';
 import { employeeCheckQuery, employeeInsertQuery } from './EmployeeQueries';
 
 const registerEmployee = async (req, res) => {
@@ -28,10 +28,7 @@ const registerEmployee = async (req, res) => {
             error: "Please enter a valid email address."
         });
     }
-        const image_cloud_url =  cloud(dUri);
- 
-   
-    console.log(image_cloud_url);
+    
 
     const hashedPassword = generateHash(hashedPassword);
 
@@ -45,40 +42,52 @@ const registerEmployee = async (req, res) => {
         });
     }
 
-    const values = [
-        first_name,
-        last_name,
-        email, 
-        hashedPassword,
-        image_cloud_url,
-        department_id,
-        address,
-        moment(new Date()),
-        moment(new Date())
-    ];
+    
+    // if(req.file){
+        try {
+            const file = dataUri(req).content;
+            const result =  await uploader.upload(file);
+            const image = result.url;
 
-    try {
-        const { rows } = await query(employeeInsertQuery, values);
-        const { email, id, first_name, last_name } = rows[0];
+            console.log(image);
 
-        const token = generateToken(email, id, first_name, last_name );
-        res.status(201).send({
-            status: "success",
-            data: {
-                message: "Employee account created successfully",
-                token: token,
-                userId: id
-            }
-        });
+            const values = [
+                first_name,
+                last_name,
+                email, 
+                hashedPassword,
+                image,
+                department_id,
+                address,
+                moment(new Date()),
+                moment(new Date())
+            ];
+
+            const { rows } = await query(employeeInsertQuery, values);
+            const { email, id, first_name, last_name } = rows[0];
+            
+
+            const token = generateToken(email, id, first_name, last_name );
+            res.status(201).send({
+                status: "success",
+                data: {
+                    message: "Employee account created successfully",
+                    token: token,
+                    imageUrl:image,
+                    userId: id
+                }
+            });
+        }
+        catch(err){
+            res.send(400).send({
+                status: "error",
+                error: new Error(err)
+            });
+        }
     }
-    catch(err){
-        res.send(400).send({
-            status: "error",
-            error: err
-        });
-    }
-
-}
+    // else {
+    //     console.log('req.file not sent');
+    // }
 
 export {
     registerEmployee

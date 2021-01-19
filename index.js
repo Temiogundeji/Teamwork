@@ -1,5 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import { resolve } from 'path';
+import { cloudinaryConfig } from './helpers/cloudinaryConfig';
 import employeeRoutes from './components/employee/EmployeeRoutes';
 import logger from 'morgan';
 const app = express();
@@ -10,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 8000;
 
 app.use('/api/v1', employeeRoutes);
+app.use('*', cloudinaryConfig);
 
 // when a random route is inputed
 app.get('*', (req, res) => res.status(200).send({
