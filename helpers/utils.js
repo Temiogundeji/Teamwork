@@ -55,10 +55,15 @@ import bcrypt from 'bcrypt';
   }
 
   const generateHash = (plainPassword) => {
+    const saltRounds = 10;
+    bcrypt.hash(plainPassword, saltRounds, function(err, hash) {
+      // Store hash in your password DB.
+      return hash;
+    });
     // const salt = bcrypt.genSaltSync();
-    const salt = 10;
-    const hashedPassword = bcrypt.hash(plainPassword, salt);
-    return hashedPassword;
+    // const salt = 10;
+    // const hashedPassword = bcrypt.hash(plainPassword, salt);
+    // return hashedPassword;
   }
 
   const comparePassword = (encodedPassword, password) => {

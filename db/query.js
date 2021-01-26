@@ -1,16 +1,18 @@
 import pool from './pool';
 
-export default {
-    query(text, params) {
-      return new Promise((resolve, reject) => {
+export const query = (text, params) => {
+    return new Promise((resolve, reject) => {
         pool.query(text, params)
-          .then((res) => {
+            .then((res) => {
             resolve(res);
-          })
-          .catch((err) => {
-            reject(err);
-          });
-      });
-    },
-  };
+        })
+        .catch(err => {
+            reject(err)
+        })
+    })
+}
+
+
+
+
 

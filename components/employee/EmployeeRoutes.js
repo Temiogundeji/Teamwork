@@ -1,9 +1,9 @@
 import { Router } from 'express';
 import { registerEmployee } from './EmployeeController';
-import { multerUploads } from '../../helpers/multer';
+
 
 const router = Router();
 
-router.post('/auth/user', multerUploads, registerEmployee);
+router.post('/auth/user', registerEmployee);
 
 export default router;
