@@ -42,7 +42,7 @@ const registerEmployee = async (req, res) =>{
     }
 
     const values = [
-        first_name,
+            first_name,
             last_name,
             email, 
             hashedPassword,
