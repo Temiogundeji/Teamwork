@@ -7,7 +7,7 @@ import { isEmailValid, isPasswordValid,
        generateHash, comparePassword     
 } from '../../helpers/utils';
 import { query } from '../../db/query'
-// import { employeeCheckQuery, employeeInsertQuery } from './EmployeeQueries';
+import { employeeCheckQuery, employeeInsertQuery } from './EmployeeQueries';
 
 const registerEmployee = async (req, res) =>{
 
@@ -29,11 +29,10 @@ const registerEmployee = async (req, res) =>{
         });
     }
 
-    const userCheckText = `SELECT * FROM employee WHERE email = $1`;
     const hashedPassword = generateHash(password);
 
     const userCheckVal = [email];
-    const usersFound = await query(userCheckText, userCheckVal);
+    const usersFound = await query(employeeCheckQuery, userCheckVal);
 
 
     if(usersFound.rows.length !== 0){
@@ -41,10 +40,6 @@ const registerEmployee = async (req, res) =>{
             message: 'User with that email already exists'
         });
     }
-    const text = `INSERT INTO 
-    employee (first_name, last_name, email, password, image, department_id, address, created_on, modified_on)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    returning *`;
 
     const values = [
         first_name,
@@ -59,11 +54,10 @@ const registerEmployee = async (req, res) =>{
     ];
 
     try {
-        const { rows } = await query(text, values);
+        const { rows } = await query(employeeInsertQuery, values);
         const { email, id, first_name, last_name, role_id } = rows[0];
 
         const token = generateToken(email, id, first_name, last_name, role_id );
-        // console.log(token);
         return res.status(201).send({
             data: rows[0],
             token: token,
@@ -72,13 +66,11 @@ const registerEmployee = async (req, res) =>{
         });
     }
     catch(err){
-        // return  res.status(400).send({
-        //     message: `Opps! The server has encountered a temporary error ${err}`
-        // });
-        console.log(err);
+        return  res.status(400).send({
+            status:"error",
+            error: err
+        });
     }
-
-
 }  
 
 const logFunction = (req, res) => {

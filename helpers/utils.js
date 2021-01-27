@@ -61,7 +61,7 @@ const generateHash = (plainPassword) => {
   return hashedPassword;
 
 }
-
+//comparePassword:: compare hashed password
   const comparePassword = (encodedPassword, password) => {
     const isMatched = bcrypt.compareSync(password, encodedPassword);
     return isMatched;
