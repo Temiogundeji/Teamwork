@@ -20,7 +20,6 @@ const port = process.env.PORT || 8000;
 const parser = multer({ storage: storage });
 const parserConst = parser.single('image');
 
-
 app.post('/api/v1/auth/user', parserConst, registerEmployee);
 
 app.use('/api/v1', employeeRoutes);

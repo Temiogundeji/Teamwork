@@ -13,8 +13,8 @@ const createEmployeeTable = () => {
         email VARCHAR(100) UNIQUE NOT NULL,
         password VARCHAR(100) NOT NULL,
         image VARCHAR(200) NOT NULL,
-        department_id INTEGER REFERENCES department(id) ON DELETE CASCADE,
-        role_id INTEGER REFERENCES roles(id) ON DELETE CASCADE,
+        department_id integer NOT NULL REFERENCES department(id) ON DELETE CASCADE,
+        role_id integer DEFAULT 1 references roles (id) ON DELETE CASCADE,
         address VARCHAR(200) NOT NULL,
         created_on timestamp,
         modified_on timestamp
@@ -35,7 +35,9 @@ const createRolesTable = () => {
     const createRolesQuery = `CREATE TABLE IF NOT EXISTS roles 
     (
         id SERIAL PRIMARY KEY,
-        role_title VARCHAR(200) NOT NULL
+        role_title VARCHAR(200) NOT NULL,
+        created_on timestamp,
+        modified_on timestamp
     );
     `;
     pool.query(createRolesQuery)
