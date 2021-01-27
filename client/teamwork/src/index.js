@@ -18,7 +18,7 @@ const colors = {
 const theme = extendTheme({ colors });
 
 ReactDOM.render(
-  <ChakraProvider theme={theme}>
+  <ChakraProvider theme={theme} resetCSS >
     <App />
   </ChakraProvider>,
   document.getElementById('root')
