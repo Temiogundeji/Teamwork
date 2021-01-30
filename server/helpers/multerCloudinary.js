@@ -8,7 +8,7 @@ cloudinary.config({
 });
 
 
-const storage = new CloudinaryStorage({
+const profileImageStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
       folder: 'image-upload',
@@ -17,5 +17,13 @@ const storage = new CloudinaryStorage({
     },
   });
 
+const gifStorage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: 'teamwork-gifs',
+    format: async (req, file) => 'gif',
+    public_id: (req, file) => 'gif-public'
+  }
+});
 
-export { storage };
+export { profileImageStorage, gifStorage };

@@ -1,9 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { resolve } from 'path';
 import { cloudinaryConfig } from './helpers/cloudinaryConfig';
-import { logFunction, registerEmployee } from './components/employee/EmployeeController';
-import employeeRoutes from './components/employee/EmployeeRoutes';
+import employeeRoutes from './components/employee/employee.routes';
+import gifRoutes from './components/gif/gif.routes';
 import logger from 'morgan';
 
 const app = express();
@@ -14,9 +13,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 8000;
 
-// app.post('/api/v1/auth/user', parserConst, registerEmployee);
-
 app.use('/api/v1', employeeRoutes);
+app.use('/api/v1', gifRoutes);
+
 app.use('*', cloudinaryConfig);
 
 // when a random route is inputed
