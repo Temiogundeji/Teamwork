@@ -8,11 +8,11 @@ cloudinary.config({
 });
 
 
-const profileImageStorage = new CloudinaryStorage({
+const imageStorage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
       folder: 'image-upload',
-      format: async (req, file) => 'png', // supports promises as well
+      format: async (req, file) => 'png/jpg', // supports promises as well
       public_id: (req, file) => 'computed-filename-using-request',
     },
   });
@@ -26,4 +26,4 @@ const gifStorage = new CloudinaryStorage({
   }
 });
 
-export { profileImageStorage, gifStorage };
+export { imageStorage, gifStorage };

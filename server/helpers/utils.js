@@ -78,7 +78,7 @@ const generateHash = (plainPassword) => {
     }
   }
 
-  const convertTitlesToSlug = (title) => {
+  const convertTitlesToSlug = (title='') => {
     const lowerCaseArticle = title.toLowerCase();
     return lowerCaseArticle.split(' ').join('-');
   }
