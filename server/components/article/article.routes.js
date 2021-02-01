@@ -10,6 +10,6 @@ const parserConst = parser.single('image');
 const router = Router();
 
 router
-.post('/articles', verifyToken, parserConst, createArticle)
+.post('/articles', parserConst, createArticle)
 
 export default router;

@@ -1,6 +1,4 @@
 import moment from 'moment';
-import Datauri from 'datauri'; 
-import path from 'path';
 import { isEmailValid, isPasswordValid,
      isEmpty, emptyFields,
       generateToken, checkIfEntityExists,
