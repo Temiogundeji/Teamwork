@@ -8,14 +8,20 @@ cloudinary.config({
 });
 
 
+// const imageStorage = new CloudinaryStorage({
+//     cloudinary: cloudinary,
+//     params: {
+//       folder: 'image-upload',
+//       format: async (req, file) => 'png', // supports promises as well
+//       public_id: (req, file) => 'public_imageyyy',
+//     },
+//   });
+
 const imageStorage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-      folder: 'image-upload',
-      format: async (req, file) => 'png/jpg', // supports promises as well
-      public_id: (req, file) => 'computed-filename-using-request',
-    },
-  });
+  cloudinary,
+  folder: 'image-upload',
+  allowedFormats: ['jpg', 'png']
+});
 
 const gifStorage = new CloudinaryStorage({
   cloudinary: cloudinary,
