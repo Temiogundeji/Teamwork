@@ -83,6 +83,19 @@ const generateHash = (plainPassword) => {
     return lowerCaseArticle.split(' ').join('-');
   }
 
+  //How to check if user field is empty
+  // const checkEmptyFields = (a, b, c, d, e, f, g, h) => {
+  //   a = a || '';
+  //   b = b || '';
+  //   c = c || '';
+  //   d = d || '';
+  //   e = e || '';
+  //   f = f || '';
+  //   g = g || '';
+  //   h = h || ''
+
+  //   if()
+  // }
   
   export {
     isEmailValid,

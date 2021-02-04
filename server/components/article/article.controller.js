@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { query } from '../../db/query';
 import { convertTitlesToSlug } from '../../helpers/utils';
-import { articleCheckQuery, articleInsertQuery } from './article.query';
+import { articleCheckQuery, articleInsertQuery, updateOneArticleQuery, findOneArticleQuery, deleteOneArticleQuery } from './article.query';
 
 export const createArticle = async (req, res) => {
     const { title, article_body, category_id } = req.body;
@@ -55,4 +55,79 @@ export const createArticle = async (req, res) => {
         })
     }
 } 
+
+export const updateAnArticle = async (req, res) => { 
+    const { articleId } = req.params;
+
+    const { title, article_body } = req.body;
+    if(!title || !article_body){
+        return res.status(400).send({
+            message: 'Incomplete parameters!'
+        });
+    }
+
+    const slug = convertTitlesToSlug(title);
+
+    try{
+        const {rows} = await query(findOneArticleQuery, [articleId]);
+        if(!rows[0]){
+            return res.status(404).send({
+                message: 'Article not found'
+            });
+        }
+
+        const values = [
+            title,
+            article_body,
+            slug,
+            moment(new Date()),
+            articleId
+        ];
+
+        const result = await query(updateOneArticleQuery, values);
+        const article = result.rows[0];
+        return res.status(200).send({
+                "status": "success" ,
+                "data": {
+                "message": "Article successfully updated",
+                "title": article.title,
+                "article": article.article_body
+                }
+            });
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).send({
+            "status": "error",
+            "error": err
+        });
+    }
+
+}
+
+export const deleteAnArticle = async(req, res) => {
+    const { articleId } = req.params;
+    try {
+    const { rows } = await query(deleteOneArticleQuery, [articleId]);
+    
+    if(!rows[0]) {
+        return res.status(404).send({'message': 'Article not found'});
+    }
+
+    return res.status(204).send({
+            "status" : "success" ,
+            "data" : {
+                "message" : "Article successfully deleted",
+            }
+        });
+    } 
+    catch(err) {
+        console.log(err);
+        return res.status(400).send({
+            "status": "error",
+            "error": err
+        });
+    }
+}
+
 

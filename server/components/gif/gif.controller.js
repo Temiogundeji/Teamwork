@@ -1,7 +1,8 @@
 import moment from 'moment';
-import { gifExistsQuery, gifInsertQuery, fetchAllGifQuery } from './gif.query';
+import { gifExistsQuery, gifInsertQuery, fetchAllGifQuery, deleteOneGifQuery } from './gif.query';
 import { query } from '../../db/query.js'
-const createGif = async (req, res) => {
+
+export const createGif = async (req, res) => {
     const { title, about_gif } = req.body;
     const { path } = req.file;
 
@@ -51,7 +52,7 @@ const createGif = async (req, res) => {
     }
 }
 
-const getAllGifs = async (req, res) => {
+export const getAllGifs = async (req, res) => {
     
     const values = [];
 
@@ -67,8 +68,28 @@ const getAllGifs = async (req, res) => {
     }
 }
 
-       
-export {
-    createGif,
-    getAllGifs
+
+export const deleteAGif = async(req, res) => {
+    const { gifId } = req.params;
+    try {
+        const { rows } = await query(deleteOneGifQuery, [gifId]);
+        
+        if(!rows[0]) {
+            return res.status(404).send({'message': 'Gif not found'});
+        }
+
+        return res.status(204).send({
+                "status" : "success" ,
+                "data" : {
+                    "message" : "Gif post successfully deleted",
+                }
+            });
+    } 
+    catch(err) {
+        console.log(err);
+        return res.status(400).send({
+            "status": "error",
+            "error": err
+        });
+    }
 }

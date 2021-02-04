@@ -6,6 +6,7 @@ const chaiHttp = require('chai-http');
 const app = require('../index');
 
 let should = chai.should();
+
 chai.use(chaiHttp);
 const { expect } = chai;
 
