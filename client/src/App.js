@@ -3,7 +3,6 @@ import './App.css';
 import { Text } from "@chakra-ui/react";
 import { Router } from "@reach/router"
 import LandingPage from './pages/landing-page/landingPage';
-import LoginPage from './pages/login-page/loginPage';
 import RegisterPage from './pages/register-page/registerPage';
 import PostGif from './pages/post-gif/postGif';
 import PostArticle from './pages/post-article/postArticle';
