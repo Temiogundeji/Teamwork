@@ -141,8 +141,9 @@ const createArticleCommentTable = () => {
         id SERIAL PRIMARY KEY,
         employeeId INTEGER REFERENCES employee(id) ON DELETE CASCADE,
         articleId INTEGER REFERENCES article(id) ON DELETE CASCADE,
-        commentBody VARCHAR(250) NOT NULL
-    );`;
+        commentBody VARCHAR(250) NOT NULL,
+        created_on timestamp
+        );`;
     pool.query(articleCommentQuery)
         .then((res) => {
             console.log(res);
@@ -161,7 +162,8 @@ const createGifCommentTable = () => {
         title VARCHAR(150),
         employeeId INTEGER REFERENCES employee(id) ON DELETE CASCADE,
         gifId INTEGER REFERENCES gif(id) ON DELETE CASCADE,
-        commentBody VARCHAR(250) NOT NULL
+        commentBody VARCHAR(250) NOT NULL,
+        created_on timestamp NOT NULL
     )`;
     pool.query(gifCommentQuery)
         .then((res) => {
