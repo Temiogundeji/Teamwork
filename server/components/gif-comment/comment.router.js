@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { createComment } from './comment.controller';
+import { createGifComment } from './comment.controller';
 import { verifyToken } from '../../middleware/Auth';
 
 const router = Router();
 
-router.post('/articles/:articleId/comment', verifyToken, createComment);
+router.post('/gifs/:gifId/comment', verifyToken, createGifComment);
 
 export default router;

@@ -51,6 +51,9 @@ import bcrypt from 'bcrypt';
     }, 
     process.env.SECRET_KEY,
     { expiresIn: '2d' });
+    
+    // const tokenJSON = atob(token);
+    // console.log(tokenJSON);
     return token;
   }
 

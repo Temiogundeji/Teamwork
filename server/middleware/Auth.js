@@ -5,6 +5,7 @@ dotenv.config();
 
 const verifyToken = async (req, res, next) => {
     const token = req.headers['x-access-token'];
+
     if(!token){
         return res.status(400).send('Token not provided.');
     }
