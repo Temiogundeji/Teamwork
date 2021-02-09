@@ -6,4 +6,5 @@ returning *`;
 
 export const findOneArticleQuery = `SELECT * FROM article WHERE id=$1`;
 export const updateOneArticleQuery = `UPDATE article SET title = $1, article_body= $2, slug= $3, modified_on = $4 WHERE id = $5 returning *`;
-export const deleteOneArticleQuery = 'DELETE FROM article WHERE id = $1 returning *';
+export const deleteOneArticleQuery = `DELETE FROM article WHERE id = $1 returning *`;
+export const getOneArticleCommentsQuery = ` SELECT id, commentbody, employeeid FROM articlecomment WHERE articleid = $1 `;

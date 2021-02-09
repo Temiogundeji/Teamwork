@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { query } from "../../db/query";
-import { commentInsertQuery, commentCheckQuery } from './comment.query';
+import { commentInsertQuery, commentCheckQuery, findOneArticleWith } from './comment.query';
 
 export const createArticleComment = async (req, res) => {
     const { employeeId, commentbody } = req.body;
@@ -29,12 +29,14 @@ export const createArticleComment = async (req, res) => {
         }
 
         const { rows } = await query(commentInsertQuery, values);
-        const { created_on, commentbody } = rows[0];
+        const { id, created_on, commentbody, employeeid } = rows[0];
         return res.status(201).send({
                 "status" : "success" ,
                 "data" : {
+                    "id": id,
                     "message" : "comment successfully created" ,
                     "createdOn" : created_on,
+                    "employeeId": employeeid,
                     "comment" : commentbody
                 }
             });
@@ -45,4 +47,4 @@ export const createArticleComment = async (req, res) => {
                 "error": err
             })
         }
-}
+} 

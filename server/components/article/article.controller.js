@@ -1,7 +1,13 @@
 import moment from 'moment';
 import { query } from '../../db/query';
 import { convertTitlesToSlug } from '../../helpers/utils';
-import { articleCheckQuery, articleInsertQuery, updateOneArticleQuery, findOneArticleQuery, deleteOneArticleQuery } from './article.query';
+import { articleCheckQuery,
+     articleInsertQuery,
+      updateOneArticleQuery,
+       findOneArticleQuery,
+        deleteOneArticleQuery,
+        getOneArticleCommentsQuery
+     } from './article.query';
 
 export const createArticle = async (req, res) => {
     const { title, article_body, category_id } = req.body;
@@ -108,14 +114,14 @@ export const updateAnArticle = async (req, res) => {
 export const deleteAnArticle = async(req, res) => {
     const { articleId } = req.params;
     try {
-    const { rows } = await query(deleteOneArticleQuery, [articleId]);
-    
-    if(!rows[0]) {
-        return res.status(404).send({'message': 'Article not found'});
-    }
+        const { rows } = await query(deleteOneArticleQuery, [articleId]);
+        
+        if(!rows[0]) {
+            return res.status(404).send({'message': 'Article not found'});
+        }
 
     return res.status(204).send({
-            "status" : "success" ,
+            "status" : "success",
             "data" : {
                 "message" : "Article successfully deleted",
             }
@@ -130,4 +136,35 @@ export const deleteAnArticle = async(req, res) => {
     }
 }
 
+export const getOneArticle = async (req, res) => {
+    const { articleId } = req.params;
 
+    const { rows } = await query(findOneArticleQuery, [articleId]);
+    const { id, created_on, title, article_body } = rows[0];
+
+    if(!rows) {
+        return res.status(404).send({'message': 'Article not found'});
+    }
+
+    try {
+        const { rows } = await query(getOneArticleCommentsQuery, [articleId]);
+        const comments = rows;
+        return res.status(200).send({
+            "status" : "success" ,
+            "data" : {
+            "id" : id ,
+            "createdOn" : created_on ,
+            "title" : title ,
+            "article" : article_body ,
+            "comments": comments
+            }
+        });
+    }
+    catch(err){
+        console.log(err);
+        return res.status(400).send({
+            "status": "error",
+            "error": err
+        });
+    }
+}
