@@ -6,9 +6,9 @@ import { isEmailValid, isPasswordValid,
 } from '../../helpers/utils';
 import { query } from '../../db/query'
 import { employeeCheckQuery, employeeInsertQuery } from './employee.queries';
+import { getRoleTitle, roles } from '../../helpers/roles';
 
 const registerEmployee = async (req, res) =>{
-
     const { first_name, last_name, email, password, department_id, address } =  req.body;
     const { path } = req.file;
 
@@ -102,6 +102,7 @@ const login = async (req, res) => {
         "data" : {
         "token" : token ,
         "userId" : id ,
+        "roleId": role_id
         }
     });
    }

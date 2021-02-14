@@ -152,11 +152,11 @@ export const getOneArticle = async (req, res) => {
         return res.status(200).send({
             "status" : "success" ,
             "data" : {
-            "id" : id ,
-            "createdOn" : created_on ,
-            "title" : title ,
-            "article" : article_body ,
-            "comments": comments
+                "id" : id ,
+                "createdOn" : created_on ,
+                "title" : title ,
+                "article" : article_body ,
+                "comments": comments
             }
         });
     }
