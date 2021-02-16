@@ -15,7 +15,7 @@ app.use(bodyParser.json());
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const port = process.env.PORT || 8001;
+const port = process.env.PORT || 8000;
 
 app.use('/api/v1', articleRoutes);
 app.use('/api/v1', employeeRoutes);
