@@ -1,6 +1,6 @@
 import React from 'react';
 import { Flex, Spacer,Box, Heading, Button } from "@chakra-ui/react";
-import { Link } from '@chakra-ui/core';
+// import { Link } from '@chakra-ui/core';
 
 const Header = (props) => {
     const headingStyle = {

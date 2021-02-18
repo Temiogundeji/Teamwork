@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { Link, navigate } from '@reach/router';
 import { useFormik } from 'formik';
 import { login } from '../../actions/login';
 import './loginPage.css';
@@ -19,21 +20,21 @@ const validate = (values) => {
         errors.password = "Password field cannot be empty";
     }
       return errors;
-}
+};
 
 const LoginPage = () => {
     const [responseMessage, setResponseMessage] = useState(null),
           [isSubmitting, setIsSubmitting] = useState(false),
-          dispatch = useDispatch();
+          dispatch = useDispatch(),
           formik = useFormik({
               initialValue: {
                   email: "",
                   password: ""
               },
               validate,
-              onSubmit = (values) => {
-                setIsSubmitting(true);
-                setResponseMessage(null);
+              onSubmit: (values) => {
+                setIsSubmitting(true)
+                setResponseMessage(null)
                 submitDataToServer(values)
               }
           }),
@@ -45,13 +46,12 @@ const LoginPage = () => {
               setResponseMessage(error);
           },
           callback = {
-              success: successCallback,
-              error: errorCallback
+            success: sucessCallback,
+            error: errorCallback
           },
-        submitDataToServer = (data) => {
+          submitDataToServer = (data) => {
             dispatch(login(data, callback));
-        }
-    
+          };
     return (
         <>
             <h2>Login Here!</h2>
