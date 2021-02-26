@@ -27,7 +27,7 @@ const LoginPage = () => {
           [isSubmitting, setIsSubmitting] = useState(false),
           dispatch = useDispatch(),
           formik = useFormik({
-              initialValue: {
+              initialValues: {
                   email: "",
                   password: ""
               },
@@ -56,7 +56,7 @@ const LoginPage = () => {
         <>
             <h2>Login Here!</h2>
             <form onSubmit={formik.handleSubmit}>
-            <div className="form-group">
+              <div className="">
                     <label htmlFor="email" className="sr-only">
                       Email
                     </label>
@@ -67,7 +67,6 @@ const LoginPage = () => {
                       id="email"
                       value={formik.values.email}
                       onChange={formik.handleChange}
-                      className="form-control"
                       placeholder="Email address"
                     />
                     {formik.errors.email ? (
@@ -76,7 +75,7 @@ const LoginPage = () => {
                       </span>
                     ) : null}
                   </div>
-                  <div className="form-group mb-4">
+                  <div className="">
                     <label htmlFor="password" className="sr-only">
                       Password
                     </label>
@@ -96,6 +95,7 @@ const LoginPage = () => {
                       </span>
                     ) : null}
                   </div>
+                  <button>Login</button>
             </form>
         </>
     );

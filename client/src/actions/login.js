@@ -30,6 +30,8 @@ export const login = (details, callback = {}) => {
                     title: "employee",
                     data
                 });
+                alert("Login successful");
+                console.log(data);
                 if(callback.success){
                     callback.success();
                 }

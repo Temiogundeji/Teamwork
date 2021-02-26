@@ -1,7 +1,7 @@
 import { SET_LOGIN_STATE } from '../constants';
 import { employeeInitialState } from './initialState';
 
-export const learnerReducer = (state = employeeInitialState, action) => {
+export const employeeReducer = (state = employeeInitialState, action) => {
     switch (action.type) {
         case SET_LOGIN_STATE:
             return {

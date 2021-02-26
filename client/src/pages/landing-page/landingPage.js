@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../../components/sections/Header';
 import './landingPage.css';
 
 const LandingPage = (props) => {
     return (
         <div>
-          <Header />
+          <h1>This is the landing page.</h1>
         </div>
     );
 }

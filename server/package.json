@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec babel-node index.js",
-    "test": "nyc mocha --exit",
+    "test": "nyc mocha ./test/index.spec.js --exit",
     "coverage": "nyc npm run test"
   },
   "keywords": [],

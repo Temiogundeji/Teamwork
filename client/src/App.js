@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Text } from "@chakra-ui/react";
+// import { Text } from "@chakra-ui/react";
 import { Router } from "@reach/router"
 import LandingPage from './pages/landing-page/landingPage';
 import RegisterPage from './pages/register-page/registerPage';
