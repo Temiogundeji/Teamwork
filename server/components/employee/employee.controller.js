@@ -3,10 +3,10 @@ import { isEmailValid, isPasswordValid,
      isEmpty, emptyFields,
       generateToken, checkIfEntityExists,
        generateHash, comparePassword     
-} from '../../helpers/utils';
-import { query } from '../../db/query'
-import { employeeCheckQuery, employeeInsertQuery } from './employee.queries';
-import { getRoleTitle, roles } from '../../helpers/roles';
+} from '../../helpers/utils.js';
+import { query } from '../../db/query.js'
+import { employeeCheckQuery, employeeInsertQuery } from './employee.queries.js';
+// import { getRoleTitle, roles } from '../../helpers/roles';
 
 const registerEmployee = async (req, res) =>{
     const { first_name, last_name, email, password, department_id, address } =  req.body;

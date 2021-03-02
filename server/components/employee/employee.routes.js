@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import { login, registerEmployee } from './employee.controller';
+import { login, registerEmployee } from './employee.controller.js';
 import multer from 'multer';
-import { imageStorage } from '../../helpers/multerCloudinary';
+import { imageStorage } from '../../helpers/multerCloudinary.js';
 
 const parser = multer({ storage: imageStorage });
 const parserConst = parser.single('image');

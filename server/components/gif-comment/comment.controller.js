@@ -1,6 +1,6 @@
 import moment from 'moment';
-import { query } from "../../db/query";
-import { commentInsertQuery, commentCheckQuery } from './comment.query';
+import { query } from "../../db/query.js";
+import { commentInsertQuery, commentCheckQuery } from './comment.query.js';
 
 export const createGifComment = async (req, res) => {
     const { title, employeeId, gifId, commentbody } = req.body;

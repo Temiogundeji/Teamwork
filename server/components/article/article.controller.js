@@ -1,13 +1,13 @@
 import moment from 'moment';
-import { query } from '../../db/query';
-import { convertTitlesToSlug } from '../../helpers/utils';
+import { query } from '../../db/query.js';
+import { convertTitlesToSlug } from '../../helpers/utils.js';
 import { articleCheckQuery,
      articleInsertQuery,
       updateOneArticleQuery,
        findOneArticleQuery,
         deleteOneArticleQuery,
         getOneArticleCommentsQuery
-     } from './article.query';
+     } from './article.query.js';
 
 export const createArticle = async (req, res) => {
     const { title, article_body, category_id } = req.body;

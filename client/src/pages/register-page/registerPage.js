@@ -3,7 +3,9 @@ import './registerPage.css';
 
 const RegisterPage = (props) => {
     return (
-        <div>Register Page</div>
+        <>
+            
+        </>
     );
 }
 

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { gifExistsQuery, gifInsertQuery, fetchAllGifQuery, deleteOneGifQuery } from './gif.query';
+import { gifExistsQuery, gifInsertQuery, fetchAllGifQuery, deleteOneGifQuery } from './gif.query.js';
 import { query } from '../../db/query.js'
 
 export const createGif = async (req, res) => {

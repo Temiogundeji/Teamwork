@@ -1,13 +1,10 @@
-process.env.NODE_ENV = 'test';
-
-const chai = require('chai');
-const chaiHttp = require('chai-http');
-
-const app = require('../index');
-
-let should = chai.should();
+import chai from "chai";
+import chaiHttp from "chai-http";
+import app from '../app.js';
+// const app = require('../app');
 
 chai.use(chaiHttp);
+
 const { expect } = chai;
 
     describe('Employee Tests', () => {

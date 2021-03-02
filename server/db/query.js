@@ -1,4 +1,4 @@
-import pool from './pool';
+import pool from './pool.js';
 
 export const query = (text, params) => {
     return new Promise((resolve, reject) => {

@@ -1,11 +1,11 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { cloudinaryConfig } from './helpers/cloudinaryConfig';
-import employeeRoutes from './components/employee/employee.routes';
-import gifRoutes from './components/gif/gif.routes';
-import articleRoutes from './components/article/article.routes';
-import articleCommentRoutes from './components/article-comment/comment.routes';
-import gifCommentRoutes from './components/gif-comment/comment.router';
+import { cloudinaryConfig } from './helpers/cloudinaryConfig.js';
+import employeeRoutes from './components/employee/employee.routes.js';
+import gifRoutes from './components/gif/gif.routes.js';
+import articleRoutes from './components/article/article.routes.js';
+import articleCommentRoutes from './components/article-comment/comment.routes.js';
+import gifCommentRoutes from './components/gif-comment/comment.router.js';
 
 import logger from 'morgan';
 

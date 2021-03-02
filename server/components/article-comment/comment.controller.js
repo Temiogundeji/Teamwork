@@ -1,6 +1,6 @@
 import moment from 'moment';
-import { query } from "../../db/query";
-import { commentInsertQuery, commentCheckQuery, findOneArticleWith } from './comment.query';
+import { query } from "../../db/query.js";
+import { commentInsertQuery, commentCheckQuery } from './comment.query.js';
 
 export const createArticleComment = async (req, res) => {
     const { employeeId, commentbody } = req.body;

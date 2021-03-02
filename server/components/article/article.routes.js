@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { createArticle, deleteAnArticle, getOneArticle, updateAnArticle } from './article.controller';
+import { createArticle, deleteAnArticle, getOneArticle, updateAnArticle } from './article.controller.js';
 import multer from 'multer';
-import { imageStorage } from '../../helpers/multerCloudinary';
-import { verifyToken } from '../../middleware/Auth';
+import { imageStorage } from '../../helpers/multerCloudinary.js';
+import { verifyToken } from '../../middleware/Auth.js';
 
 const parser = multer({ storage: imageStorage });
 const parserConst = parser.single('image');
