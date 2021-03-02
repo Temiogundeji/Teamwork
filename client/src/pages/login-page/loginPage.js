@@ -55,13 +55,13 @@ const LoginPage = () => {
     return (
         <>
         <form onSubmit = {() => {}}>
-          <section className="text-red-500 body-font">
-              <div className="container px-8 pt-48 pb-24 lg:w-3/4 mx-auto lg:px-4">
-                  <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+          <section className="text-red-500 heading-font">
+              <div className="container px-8 p-5  pb-24 mx-auto md:w-3/4 lg:px-4">
+                  <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900 mb-10">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10 text-white p-2 bg-red-500 rounded-full" viewBox="0 0 24 24">
                       <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                       </svg>
-                      <span className="ml-3 text-xl">Tailblocks</span>
+                      <span className="ml-3 text-xl">Teamwork</span>
                   </a>
                   <div
                       className="flex flex-col w-full p-8 mx-auto mt-10 border rounded-lg lg:w-2/6 md:w-1/2 md:ml-auto md:mt-0">
@@ -70,7 +70,7 @@ const LoginPage = () => {
                               className="w-full px-4 py-2 mb-4 text-red transition duration-500 ease-in-out transform bg-gray-100 border-transparent rounded-lg mr-4text-base focus:border-gray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2" />
                       </div>
                       <div className="relative ">
-                          <input type="password" id="password" name="password" placeholder="*********"
+                          <input type="password" id="password" name="password" placeholder="password"
                               className="w-full px-4 py-2 mb-4 text-red transition duration-500 ease-in-out transform bg-gray-100 border-transparent rounded-lg mr-4text-base focus:border-gray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2" />
                       </div>
                       <div className="flex my-4">
