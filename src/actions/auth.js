@@ -1,7 +1,8 @@
 import { REGISTER_FAIL, REGISTER_SUCCESS, LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT, SET_MESSAGE } from './types';
 import { authService } from '../services/auth.service';
 
-export const register = (first_name, last_name, email, password, department_id, address, image) => (dispatch) => {
+export const register = (userData = {}) => (dispatch) => {
+  let {first_name, last_name, email, password, department_id, address, image} = userData;
     return authService.register(first_name, last_name, email, password, department_id, address, image).then(
       (response) => {
         dispatch({
@@ -22,6 +23,8 @@ export const register = (first_name, last_name, email, password, department_id, 
             error.response.data.message) ||
           error.message ||
           error.toString();
+
+          console.log(message);
   
         dispatch({
           type: REGISTER_FAIL,

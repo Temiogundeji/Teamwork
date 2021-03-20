@@ -8,7 +8,7 @@ const initialState =  user ?
  const authReducer = (state = initialState, action) => {
      const { type, payload } = action;
      switch (type) {
-         case REGISTER_SUCCESS:
+        case REGISTER_SUCCESS:
              return {
                  ...state,
                  isLoggedIn: true

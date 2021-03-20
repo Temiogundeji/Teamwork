@@ -1,16 +1,8 @@
 import axios from 'axios';
 import { signupAPI, loginAPI } from '../constants/api';
 
-const register = (first_name, last_name, email, password, department_id, address, image) => {
-    return axios.post(signupAPI, {
-        first_name,
-        last_name,
-        email,
-        password,
-        department_id,
-        address,
-        image
-    });
+const register = (userData = {}) => {
+    return axios.post(signupAPI, userData);
 };
 
 const login = (email, password) => {

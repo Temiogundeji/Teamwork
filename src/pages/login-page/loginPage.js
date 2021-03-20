@@ -25,7 +25,7 @@ const validate = (values) => {
 const LoginPage = () => {
     const { isLoggedIn } = useSelector(state => state.authReducer),
     { message } = useSelector(state => state.messageReducer),
-    [loading, setLoading] = useState(false),
+    // [loading, setLoading] = useState(false),
     dispatch = useDispatch(),
     formik = useFormik({
       initialValues: {
