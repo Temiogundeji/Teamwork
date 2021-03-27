@@ -112,7 +112,7 @@ const RegisterPage = () => {
                         <div className="relative">
                             <input value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} required type="password" id="password" name="password" placeholder="password"
                                 className="w-full px-4 py-2 mb-4 text-red transition duration-500 ease-in-out transform bg-gray-100 border-transparent rounded-lg mr-4text-base focus:border-gray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2" />
-                          {/* {(formik.errors.password) ? <small className="text-sm text-red-400 mb-3">{formik.errors.password}</small> : null} */}
+                          {(formik.errors.password) ? <small className="text-sm text-red-400 mb-3">{formik.errors.password}</small> : null}
                         </div>
                         <div className="relative">
                             <input onChange={(e) => setImage(e.target.files[0])} required type="file" id="image" name="image"
